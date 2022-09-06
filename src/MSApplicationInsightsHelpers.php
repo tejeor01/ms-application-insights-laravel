@@ -1,7 +1,7 @@
 <?php
 namespace Marchie\MSApplicationInsightsLaravel;
 
-use Exception;
+use Throwable;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -73,9 +73,9 @@ class MSApplicationInsightsHelpers
     /**
      * Track application exceptions
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public function trackException(Exception $e)
+    public function trackException(Throwable $e)
     {
         if ($this->telemetryEnabled()) {
             $this->msApplicationInsights->telemetryClient->trackException($e,
@@ -90,11 +90,11 @@ class MSApplicationInsightsHelpers
     /**
      * Get request properties from the exception trace, if available
      *
-     * @param Exception $e
+     * @param Throwable $e
      *
      * @return array|null
      */
-    private function getRequestPropertiesFromException(Exception $e)
+    private function getRequestPropertiesFromException(Throwable $e)
     {
         foreach ($e->getTrace() as $item)
         {
